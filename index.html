@@ -3,43 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="A simple client-side calculator built with vanilla JavaScript." />
-  <title>Calculator</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <title>Scientific Calculator</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="calculator" role="application" aria-label="Calculator">
+  <main class="calculator" role="application" aria-label="Scientific Calculator">
     <div class="display" id="display" aria-live="polite">
-      <div class="display-history" id="history"></div>
-      <div class="display-current" id="current">0</div>
+      <div class="display-expression" id="expression"></div>
+      <div class="display-value" id="value">0</div>
     </div>
-    <div class="keys">
-      <button type="button" class="key key-action" data-action="clear">AC</button>
-      <button type="button" class="key key-action" data-action="sign">+/-</button>
-      <button type="button" class="key key-action" data-action="percent">%</button>
-      <button type="button" class="key key-operator" data-action="operator" data-operator="/">&divide;</button>
 
-      <button type="button" class="key key-number" data-action="number" data-value="7">7</button>
-      <button type="button" class="key key-number" data-action="number" data-value="8">8</button>
-      <button type="button" class="key key-number" data-action="number" data-value="9">9</button>
-      <button type="button" class="key key-operator" data-action="operator" data-operator="*">&times;</button>
+    <!-- Scientific function row (ADR-002): direct buttons + Shift for inverse functions -->
+    <div class="sci-row">
+      <button class="btn sci" data-action="shift" id="shiftBtn">Shift</button>
+      <button class="btn sci" data-action="sci" data-fn="sin" data-shift-fn="asin" data-shift-label="asin">sin</button>
+      <button class="btn sci" data-action="sci" data-fn="cos" data-shift-fn="acos" data-shift-label="acos">cos</button>
+      <button class="btn sci" data-action="sci" data-fn="tan" data-shift-fn="atan" data-shift-label="atan">tan</button>
+      <button class="btn sci" data-action="sci" data-fn="log" data-shift-fn="ln" data-shift-label="ln">log</button>
+      <button class="btn sci" data-action="sci" data-fn="sqrt" data-shift-fn="factorial" data-shift-label="n!">&radic;</button>
+      <button class="btn sci" data-action="power" data-shift-fn="tenpow" data-shift-label="10^x">x^y</button>
+    </div>
 
-      <button type="button" class="key key-number" data-action="number" data-value="4">4</button>
-      <button type="button" class="key key-number" data-action="number" data-value="5">5</button>
-      <button type="button" class="key key-number" data-action="number" data-value="6">6</button>
-      <button type="button" class="key key-operator" data-action="operator" data-operator="-">&minus;</button>
+    <!-- Standard pad -->
+    <div class="pad">
+      <button class="btn func" data-action="clear">C</button>
+      <button class="btn func" data-action="sign">+/-</button>
+      <button class="btn func" data-action="percent">%</button>
+      <button class="btn op" data-action="operator" data-op="/">&divide;</button>
 
-      <button type="button" class="key key-number" data-action="number" data-value="1">1</button>
-      <button type="button" class="key key-number" data-action="number" data-value="2">2</button>
-      <button type="button" class="key key-number" data-action="number" data-value="3">3</button>
-      <button type="button" class="key key-operator" data-action="operator" data-operator="+">+</button>
+      <button class="btn digit" data-digit="7">7</button>
+      <button class="btn digit" data-digit="8">8</button>
+      <button class="btn digit" data-digit="9">9</button>
+      <button class="btn op" data-action="operator" data-op="*">&times;</button>
 
-      <button type="button" class="key key-number key-zero" data-action="number" data-value="0">0</button>
-      <button type="button" class="key key-number" data-action="decimal">.</button>
-      <button type="button" class="key key-equals" data-action="equals">=</button>
+      <button class="btn digit" data-digit="4">4</button>
+      <button class="btn digit" data-digit="5">5</button>
+      <button class="btn digit" data-digit="6">6</button>
+      <button class="btn op" data-action="operator" data-op="-">&minus;</button>
+
+      <button class="btn digit" data-digit="1">1</button>
+      <button class="btn digit" data-digit="2">2</button>
+      <button class="btn digit" data-digit="3">3</button>
+      <button class="btn op" data-action="operator" data-op="+">+</button>
+
+      <button class="btn digit zero" data-digit="0">0</button>
+      <button class="btn digit" data-action="decimal">.</button>
+      <button class="btn op equals" data-action="equals">=</button>
     </div>
   </main>
 
-  <script type="module" src="js/app.js"></script>
+  <script type="module" src="src/main.js"></script>
 </body>
 </html>

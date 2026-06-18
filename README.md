@@ -1,66 +1,69 @@
-# Calculator
+# Scientific Calculator
 
-A simple, client-side calculator with a clean front-end UI. Built per **ADR-001 (Client-Side Only Architecture)** and **ADR-002 (Vanilla JavaScript for Frontend Logic)** — no backend, no frameworks, zero runtime dependencies.
+A lightweight, dependency-free **scientific calculator** running entirely in the browser with vanilla JavaScript (ES modules). It extends the existing `CalculatorState` arithmetic engine with scientific functions, fulfilling the `scientific calculator` requirement.
+
+## Architecture
+
+This implementation follows the project ADRs:
+
+- **ADR-001 — Add Scientific Functions to CalculatorState:** Scientific functions (`sin`, `cos`, `tan`, `log`, `sqrt`, power) are added as methods on the existing `CalculatorState` class in `src/calculator.js`, reusing the native JavaScript `Math` object (no third-party math library).
+- **ADR-002 — Add Scientific Function Buttons to UI:** A compact row of scientific buttons sits above the number pad. A **Shift** key toggles inverse functions (`asin`, `acos`, `atan`, `ln`, `n!`, `10^x`).
 
 ## Tech Stack
 
-- **HTML5** — single-page markup (`index.html`)
-- **CSS3** — styling and responsive grid layout (`css/styles.css`)
-- **Vanilla JavaScript (ES6 modules)** — UI controller and arithmetic engine (`js/`)
-
-> Deliberately no React/Vue/jQuery and no build step, in line with the accepted ADRs.
-
-## Features
-
-- Basic arithmetic: addition, subtraction, multiplication, division
-- Percent and sign (+/-) operations
-- Decimal support with floating-point rounding to avoid IEEE-754 display noise
-- Full keyboard support (digits, operators, `Enter`/`=`, `Esc` to clear)
-- Divide-by-zero guarded with an `Error` display
+| Concern | Choice |
+|--------|--------|
+| Language | JavaScript (ES Modules) |
+| UI | HTML + CSS (no framework) |
+| State | `CalculatorState` class |
+| Tests | Node.js built-in test runner |
+| Dev server | `serve` |
 
 ## Project Structure
 
 ```
 .
-├── index.html            # App entry point / UI markup
-├── css/
-│   └── styles.css        # Styling
-├── js/
-│   ├── app.js            # DOM controller (event wiring + rendering)
-│   └── calculator.js     # Pure arithmetic engine + state machine (testable)
+├── index.html          # Calculator markup (display, sci row, number pad)
+├── styles.css          # Dark theme styling
+├── src/
+│   ├── calculator.js   # CalculatorState model (arithmetic + scientific)
+│   └── main.js         # DOM controller + Shift toggle + keyboard input
 ├── tests/
-│   └── calculator.test.js# Unit tests (Vitest)
-├── package.json          # Dev tooling only (serve + vitest)
-└── .gitignore
+│   └── calculator.test.js
+├── package.json
+└── README.md
 ```
 
 ## Getting Started
 
-Because the app is fully static, you can open `index.html` directly in a browser. ES modules require an HTTP origin, so the simplest path is a static server.
-
-### Option A — npm (recommended)
-
 ```bash
-npm install      # installs the dev-only static server + test runner
-npm start        # serves the app at http://localhost:3000
-```
+# Install the dev server
+npm install
 
-### Option B — any static server
-
-```bash
-python3 -m http.server 8000   # then open http://localhost:8000
+# Run locally (serves the static files)
+npm start
+# then open the printed URL (e.g. http://localhost:3000)
 ```
 
 ## Running Tests
 
 ```bash
-npm test         # run the unit suite once
-npm run test:watch
+npm test
 ```
 
-## Deployment
+## Features
 
-Serve the repository root as static files on any CDN or static host (GitHub Pages, Netlify, S3, etc.). No server runtime is required.
+- Standard arithmetic: `+`, `-`, `×`, `÷`, `%`, sign toggle, decimals
+- Scientific functions: `sin`, `cos`, `tan`, `log`, `√`, `x^y`
+- Shifted (inverse) functions: `asin`, `acos`, `atan`, `ln`, `n!`, `10^x`
+- Trigonometry in **degrees** for intuitive use
+- Full keyboard support (digits, operators, `Enter` = evaluate, `Esc` = clear)
+- Graceful `Error` handling for invalid operations (e.g. division by zero)
+
+## Notes
+
+- Trig inputs/outputs use degrees.
+- Power (`x^y`) is treated as a binary operator: enter the base, press `x^y`, enter the exponent, then `=`.
 
 ## License
 
