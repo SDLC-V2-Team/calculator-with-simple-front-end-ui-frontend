@@ -1,23 +1,23 @@
 {
-  "name": "calculator",
+  "name": "scientific-calculator",
   "version": "1.0.0",
-  "description": "A simple client-side calculator built with vanilla JavaScript, HTML5, and CSS3.",
-  "private": true,
+  "description": "A browser-based scientific calculator built with vanilla JavaScript, extending CalculatorState with scientific functions (sin, cos, tan, log, sqrt, power) per ADR-001 and ADR-002.",
+  "main": "src/calculator.js",
   "type": "module",
   "scripts": {
     "start": "serve .",
     "dev": "serve .",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "node --test tests/"
   },
   "keywords": [
     "calculator",
-    "vanilla-js",
-    "client-side"
+    "scientific",
+    "javascript",
+    "vanilla-js"
   ],
+  "author": "",
   "license": "MIT",
   "devDependencies": {
-    "serve": "^14.2.1",
-    "vitest": "^1.6.0"
+    "serve": "^14.2.1"
   }
 }
